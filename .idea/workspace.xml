@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6aa26cb-a154-4c34-9c40-bad81cd33676" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/src/components/home/body/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/body/index.jsx" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.json" beforeDir="false" afterPath="$PROJECT_DIR$/database.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
@@ -9,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/menu/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/menu/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/body/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/body/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/modals/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/modals/index.jsx" afterDir="false" />
+>>>>>>> develop
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,11 @@
       <option name="presentableId" value="Default" />
       <updated>1617983405313</updated>
       <workItem from="1617983407808" duration="9782000" />
+<<<<<<< HEAD
+      <workItem from="1618276306956" duration="10654000" />
+=======
       <workItem from="1618276306956" duration="10020000" />
+>>>>>>> develop
     </task>
     <servers />
   </component>
