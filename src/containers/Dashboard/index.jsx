@@ -1,17 +1,17 @@
 import "./index.scss";
 import {useParams, Redirect} from "react-router-dom";
-import { useState } from "react";
 import Menu from "../../components/dashboard/menu/index.jsx";
 import BankMovie from "../../components/dashboard/bankMovie/index.jsx";
 import RegisterMovie from '../../components/dashboard/bankMovie/index';
+import { useState, useEffect } from "react";
+import MyMovie from "../../components/dashboard/myMovie/index.jsx"
 
 export default function DashboardContainer() {
 
-    const [tab, setTab] = useState(useParams().tab);
-    const [notFound, setNotFound] = useState(false);
+    const {tab} = useParams();
 
     function validNotFound() {
-        if(tab !== 'bankMovie' && tab !== 'registerMovie' )  {
+        if(tab !== 'bankMovie' && tab !== 'registerMovie' && tab !== "myMovie" && tab !== "profile" )  {
            return <Redirect push to="/*" />
         }else {
             return (<Menu tab={tab}></Menu> )
@@ -33,14 +33,24 @@ export default function DashboardContainer() {
                 
                 case "myMovie":
                 return(
-                    <div className={tab === 'myMovie' ? 'active' : ''}>myMovie</div>
+                    <MyMovie className={tab === 'myMovie' ? 'active' : ''}/>
                 )
-
+                
+                case "profile":
+                    return(
+                        <div className={tab === 'profile' ? 'active' : ''}>profile</div>
+                    )
+                
+        
             default:
                 return <span> no exite </span>
                 
         }
     }
+
+    useEffect(() => {
+
+    }, [tab]);
 
     return(
        <div className="containerDashboard bg-blue">
