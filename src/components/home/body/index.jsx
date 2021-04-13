@@ -3,23 +3,26 @@ import React, { useState } from 'react';
 import logo from "../../../img/logo.png";
 import Modal from "../modals/index";
 import Alert from '../../custom/Alert/index';
+import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 export default function ComponentBodyHome() {
+    const [block, setBlock] = useState(false);
 
     const [datos, setDatos] = useState({
         nombre: '',
         apellido: '',
-        contraseña: '',
         email: '',
         genero: '',
-    })
+    });
+    const history = useHistory();
 
     const [login, setLogin] = useState({
         usuario:'',
         contraseña:'',
-        memoricePassword: false
     })
-
+    const API = 'http://localhost:5000';
+    const resource = '/users';
     const [mode, setMode] = useState('login');
     const [modal, setModal] = useState(false);
     const [memories, setMemories] = useState(false);
@@ -45,7 +48,7 @@ export default function ComponentBodyHome() {
     }
 
     function handleClose() {
-        setModal(false)
+        setModal(false);
     }
 
     
@@ -107,19 +110,35 @@ export default function ComponentBodyHome() {
         }
         setModal(true);
         setShowAlert(false);
-            
-
+        localStorage.setItem('modelRegister', JSON.stringify(datos));
     }
+
+
     function handleChangeLogin(e) {
         setLogin({...login,
             [e.target.name]: e.target.value})
-        
     }
 
+    function handleReturn() {
+        setMode('login');
+        setDatos({
+            nombre: '',
+            apellido: '',
+            email: '',
+            genero: '',
+        });
+        setLogin({
+            usuario:'',
+            contraseña:'',
+        });
+        handleClose();
+    }
 
-
-    function handleLogin() {
-        console.log(login);
+   function handleLogin() {
+        if(block) {
+            return;
+        }
+        setBlock(true);
         if (!login.usuario) {
             setAlert({
                 type: false,
@@ -137,10 +156,29 @@ export default function ComponentBodyHome() {
             setShowAlert(true)
             return
         }
-        
         if(memories){
             localStorage.setItem('memoriesPassword', login.contraseña);    
            }
+
+        submit();
+    }
+
+    const submit = async () => {
+        const response = await axios.get(`${API}${resource}?user=${login.usuario}&password=${login.contraseña}`);
+        console.log(response)
+        if(response.status === 200 && response.data.length > 0){
+            localStorage.setItem('userId', response.data[0].id);
+            setBlock(false);
+            history.push('dashboard/bankMovie');
+        } else {
+            setAlert({
+                type: false,
+                message:'Usuario o contraseña incorrectos'
+            })
+            setShowAlert(true);
+            setBlock(false);
+            return
+        }
     }
 
     return(
@@ -155,7 +193,6 @@ export default function ComponentBodyHome() {
                     <div onClick={()=>handleClick('register') } className={`registrarse color-blue d-flex  w-100 h-100 aling-items-center justify-center w-50 ${ mode === 'register' ? 'active' : ''}  `}>
                         <span className=" u-bold  text-justify font-14"  >REGISTRARSE</span>
                     </div>
-                    
                 </div>
 
                 <div className="contentForm w-100 "> 
@@ -167,19 +204,19 @@ export default function ComponentBodyHome() {
                         <form className="d-flex-column" id="formLogin" >
                             <label htmlFor="usuario" className="mg-top-10">
                                 <h1 className="u-medium mg-bot-10 font-12 cursor-p">USUARIO</h1>
-                                <input className="inputUser  w-100" type="text" onChange={(e)=> handleChangeLogin(e)} name="usuario" id="usuario"/>
+                                <input value={login.usuario} autoComplete={'off'} className="inputUser  w-100" type="text" onChange={(e)=> handleChangeLogin(e)} name="usuario" id="usuario"/>
                             </label> 
                             
                             <label htmlFor="Password" className="mg-top-10">
                                 <h1 className="u-medium mg-bot-10 font-12 cursor-p">CONTRASEÑA</h1>
-                                <input className="inputUser  w-100" type="password"  onChange={(e)=> handleChangeLogin(e)}   name="contraseña" id="password"/>
+                                <input value={login.contraseña} autoComplete={'off'} className="inputUser  w-100" type="password"  onChange={(e)=> handleChangeLogin(e)}   name="contraseña" id="password"/>
                             </label>
                             <label htmlFor="TyC" className=" w-100 d-flex aling-items-center mg-top-10">
 
                                 <input className="cursor-p" onChange={(e) => setMemories(e.target.checked)} type="checkbox" name="MemoricePassword" id="TyC"/>
                                 <h2 className="font-12 mg-left-5 u-regular cursor-p ">RECORDAR CONTRASEÑA </h2>
                             </label>
-                            <button type="button" onClick={() => handleLogin()}  onChange={(e)=> handleChangeLogin(e)} className="submit color-white u-bold mg-top-20 cursor-p bg-blue font-14 ">INICIAR SESION</button>
+                            <button type="button" onClick={() => handleLogin()} className="submit color-white u-bold mg-top-20 cursor-p bg-blue font-14 ">INICIAR SESION</button>
                         </form>
 
                     </div>
@@ -191,17 +228,17 @@ export default function ComponentBodyHome() {
                         <form className="d-flex-column" id="formRegister" >
                             <label htmlFor="nombre" className="mg-top-10">
                                 <h1 className="u-bold mg-bot-10 font-14 cursor-p">NOMBRE:</h1>
-                                <input className="input  w-100" type="text" onChange={(e)=>handleChange(e)} name="nombre" id="nombre"/>
+                                <input value={datos.nombre} autoComplete={'off'} className="input  w-100" type="text" onChange={(e)=>handleChange(e)} name="nombre" id="nombre"/>
                             </label>
                             
                             <label htmlFor="lastname" className="mg-top-10">
                                 <h1 className="u-bold mg-bot-10 font-14 cursor-p">APELLIDO:</h1>
-                                <input className="input  w-100" type="text" onChange={(e)=>handleChange(e)} name="apellido" id="lastname"/>
+                                <input value={datos.apellido}  autoComplete={'off'} className="input  w-100" type="text" onChange={(e)=>handleChange(e)} name="apellido" id="lastname"/>
                             </label>
                             
                             <label htmlFor="email" className="mg-top-10">
                                 <h1 className="u-bold mg-bot-10 font-14 cursor-p">EMAIL:</h1>
-                                <input className="input  w-100" type="text" onChange={(e)=>handleChange(e)} name="email" id="email"/>
+                                <input  autoComplete={'off'} className="input  w-100" type="email" onChange={(e)=>handleChange(e)} name="email" id="email"/>
                             </label>
                             <div className="d-flex">
                                     
@@ -216,7 +253,7 @@ export default function ComponentBodyHome() {
                                 </label>
 
                             </div>
-                            <button type="button" className="submit color-white u-bold mg-top-20 cursor-p bg-blue font-14  " onClick={()=> handleRegister()} onChange={(e)=>handleChange(e)}>REGISTRARSE</button>
+                            <button type="button" className="submit color-white u-bold mg-top-20 cursor-p bg-blue font-14  " onClick={()=> handleRegister()} >REGISTRARSE</button>
                         </form>
                     </div>
 
@@ -232,7 +269,7 @@ export default function ComponentBodyHome() {
             </div>
             {
                 modal
-                ? <Modal info={datos} close={handleClose}/>
+                ? <Modal info={datos} return={handleReturn} close={handleClose}/>
                 : ''
             
             }
