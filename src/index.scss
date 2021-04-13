@@ -1,9 +1,9 @@
 /*COLORS*/
-$primary: #166fe5;
-$blueLink: #1877f2;
+$primary: #0E0C5A;
+$blueLink:  #3886eb;
 $blueRgba: rgb(24,120,243, .2);
 $black: #000;
-$white: #fff;
+$white: #F5F9FF;
 $gray: #454545;
 $blackRgba: rgba(0,0,0,.87);
 $red: #FF0000;
@@ -414,7 +414,7 @@ ul {
 .btn{
   border-radius: 4px;
   display: inline-block;
-  font-size: $size21;
+  font-size: $size18;
   text-align: center;
   cursor: pointer;
   outline: none;
