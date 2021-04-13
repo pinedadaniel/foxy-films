@@ -1,0 +1,39 @@
+.contAlert{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px black;
+    border-radius: 6px;
+    position: absolute;
+    padding: 15px 45px 15px 15px;
+    top: 30px;
+    right: 40px;
+    .btnClose{
+        position: absolute;
+        top: 12px;
+        right: 8px;
+        border: 1px solid black;
+        border-radius: 50%;
+        height: 25px;
+        width: 25px;
+        background-color: rgba(143, 137, 137, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+.alertTrue{
+    background-color: #28a745;
+    border: 1px solid #28a745;
+    box-shadow: 5px 3px 5px #11cc3d;
+}
+
+.alertFalse{
+   
+    
+    background-color: #dc3545;
+    border: 1px solid  #dc3545;
+    box-shadow: 5px 3px 5px  #e9192e;
+}
