@@ -1,5 +1,5 @@
 import './index.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from "../../../img/logo.png";
 import Modal from "../modals/index";
 import Alert from '../../custom/Alert/index';
@@ -9,6 +9,7 @@ import {useHistory} from 'react-router-dom';
 export default function ComponentBodyHome() {
     const [block, setBlock] = useState(false);
 
+    const [memoriesPassword] = useState(localStorage.getItem('memoriesPassword'));
     const [datos, setDatos] = useState({
         nombre: '',
         apellido: '',
@@ -181,6 +182,14 @@ export default function ComponentBodyHome() {
         }
     }
 
+    useEffect(() => {
+        if(memoriesPassword){
+            setLogin({
+                ...login,
+                ['contraseña']: memoriesPassword
+            })
+        }
+    }, [])
     return(
         <div className="containerMainBody d-flex aling-items-center justify-center w-100 ">
             <img className="logo" src={logo} alt='logo'/>
