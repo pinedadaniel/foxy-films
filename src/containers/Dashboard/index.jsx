@@ -1,8 +1,9 @@
 import "./index.scss";
 import {useParams, Redirect} from "react-router-dom";
 import { useState } from "react";
-import Menu from "../../components/dashboard/menu/index.jsx"
-import BankMovie from "../../components/dashboard/bankMovie/index.jsx"
+import Menu from "../../components/dashboard/menu/index.jsx";
+import BankMovie from "../../components/dashboard/bankMovie/index.jsx";
+import RegisterMovie from '../../components/dashboard/bankMovie/index';
 
 export default function DashboardContainer() {
 
@@ -24,22 +25,20 @@ export default function DashboardContainer() {
                 return(
                     <BankMovie />
                 )
-                break;
+            
                 case "registerMovie":
                 return(
-                    <div className={tab === 'registerMovie' ? 'active' : ''}>registerMovie</div>
+                    <RegisterMovie/>
                 )
-                break;
+                
                 case "myMovie":
                 return(
                     <div className={tab === 'myMovie' ? 'active' : ''}>myMovie</div>
                 )
-                break;
-                break;
-        
+
             default:
                 return <span> no exite </span>
-                break;
+                
         }
     }
 
