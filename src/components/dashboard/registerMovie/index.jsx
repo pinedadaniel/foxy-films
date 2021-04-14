@@ -151,7 +151,7 @@ export default function RegisterMovieComponent(props) {
                         <textarea className='description'  name="descripcion" id="description" cols="40" rows="4"></textarea>
                     </label>
 
-                    <input type="button" className="submitRegister mg-top-20" value="submit" name="submit" id="submitRegister"/>
+                    <input type="button" className="submitRegister font-12 mg-top-20" value="Registrar Pelicula" name="submit" id="submitRegister"/>
                     
 
                </form>
