@@ -1,5 +1,5 @@
 import "./index.scss";
-import imgMovie from "../../../img/movie.jpg"
+import imgMovie from "../../../img/movie.jpg";
 import { useState } from "react";
 export default function BankMovieComponent(props) {
     const [checkType, setcheckType] = useState("movies");
