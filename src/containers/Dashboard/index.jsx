@@ -2,7 +2,7 @@ import "./index.scss";
 import {useParams, Redirect} from "react-router-dom";
 import Menu from "../../components/dashboard/menu/index.jsx";
 import BankMovie from "../../components/dashboard/bankMovie/index.jsx";
-import RegisterMovie from '../../components/dashboard/bankMovie/index';
+import RegisterMovie from '../../components/dashboard/registerMovie/index';
 import { useState, useEffect } from "react";
 import MyMovie from "../../components/dashboard/myMovie/index.jsx"
 
@@ -28,7 +28,7 @@ export default function DashboardContainer() {
             
                 case "registerMovie":
                 return(
-                    <RegisterMovie/>
+                    <RegisterMovie className={tab === 'registerMovie' ? 'active' : ''}/>
                 )
                 
                 case "myMovie":

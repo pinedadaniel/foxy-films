@@ -1,0 +1,94 @@
+.contRegisterMovieMain{
+    width: calc(100% - 320px);
+    margin-left: 30px;
+    display: flex;
+    padding: 20px 25px;
+    border-radius: 18px;
+    background-color: #F5F9FF ;
+    height: 100%;
+    .contLeft{
+        width: 40%;
+        padding: 20px;
+        background-color: #0E0C5A;
+        border-radius: 8px;
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        .inputRegistermovie{
+            height: 35px;
+            border-radius: 4px;
+            border: 1px solid #0E0C5A ;
+            outline: none;
+            padding: 0 10px 0 10px;
+            margin-bottom: 10px;
+            
+            
+        }
+        .inputNumber{
+            
+            height: 35px;
+            border-radius: 4px;
+            border: 1px solid #0E0C5A ;
+            outline: none;
+            padding: 0 10px 0 10px;
+            margin-bottom: 10px;
+            
+        }
+        .radioRegisterMovie{
+            margin: 0;
+        }
+    }
+    .conRight{
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #0E0C5A;
+        width: 55%;
+        .img{
+            background-color: red;
+        }
+        .section1{
+            width: 90px;
+        }
+        
+        .section2{
+            width: 125px;
+        }
+        .file{
+            display: none;
+        }
+        .bton{
+            width: 150px;
+            height: 30px;
+            background-color:#F5F9FF;
+            color: #0E0C5A ;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .description{
+            border-radius: 10px;
+            outline: none;
+            cursor: text;
+        }
+        .submitRegister{
+            width: 200px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid #0e0c5a;
+            background-color:#F5F9FF;
+            color: #0E0C5A ;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 35px;
+            letter-spacing: 0px;
+            outline: none;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    }
+}
