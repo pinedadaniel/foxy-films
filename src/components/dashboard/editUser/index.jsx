@@ -1,5 +1,53 @@
 import "./index.scss";
+import men1 from '../../../img/avatar/men1.png';
+import men2 from '../../../img/avatar/men2.png';
+import men3 from '../../../img/avatar/batman3.webp';
+import men4 from '../../../img/avatar/men4.png';
+import men5 from '../../../img/avatar/men5.webp';
+import women1 from '../../../img/avatar/wome1.png';
+import women2 from '../../../img/avatar/women2.png';
+import women3 from '../../../img/avatar/women3.jpg';
+import women4 from '../../../img/avatar/women4.jpg';
+import women5 from '../../../img/avatar/women5.jpg';
+import LoadingWhite from '../../custom/loadingWhite/index.jsx';
+import React, { useEffect, useState, useMemo } from 'react';
 export default function EditUserComponent(props) {
+    const [currentAvatar, setCurrentAvatar] = useState(false);
+    const [info] = useState(props.info);
+    const [currentAvatarPosition, setCurrentAvatarPosition] = useState(0);
+    const arrayMen = useMemo(() => [men1, men2, men3, men4, men5], []);
+    const arrayWomen = useMemo(() =>[women1, women2, women3, women4, women5], []);
+
+    function nextAvatar() {
+        setCurrentAvatar(false);
+        let max = '';
+        if (info.genero === 'men') {
+             max = arrayMen.length;
+        }else if(info.genero === 'women'){
+             max = arrayWomen.length;
+        }
+        if(currentAvatarPosition === (max - 1)) {
+            setCurrentAvatarPosition(0);
+        } else {
+            setCurrentAvatarPosition(currentAvatarPosition + 1);
+        }
+    }
+    function backAvatar() {
+        setCurrentAvatar(false);
+        let max = '';
+        if (info.genero === 'men') {
+             max = arrayMen.length;
+        }else if(info.genero === 'women'){
+             max = arrayWomen.length;
+        }
+        if(currentAvatarPosition === 0) {
+            setCurrentAvatarPosition(max - 1);
+        } else {
+            setCurrentAvatarPosition(currentAvatarPosition - 1);
+        }
+    }
+    
+
     return(
        <div className="containerEditUser  bg-white">
            <div className="contDatesRegister">
@@ -50,6 +98,11 @@ export default function EditUserComponent(props) {
                         <h2 className="textLogin">Confirmar Contraseña</h2>
                         <input className="inputLogin" type="text"/>    
                     </div> 
+                    <div className="sectionAvatar ">
+                            <span className="material-icons arrow" onClick={()=> backAvatar()}>west</span>          
+                            <LoadingWhite className="loading"/>
+                            <span className="material-icons arrow" onClick={()=> nextAvatar() }>east</span>
+                        </div>
                 </form>
                 <div className="contBtnLogin">
                 <button className="btnLogin">Actualizar</button>

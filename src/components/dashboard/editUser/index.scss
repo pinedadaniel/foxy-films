@@ -102,16 +102,39 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            .textLogin{
-                color: white;
-                margin-bottom: 10px;
+            .itemLogin{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-bottom:10px ;
+                .textLogin{
+                    color: white;
+                    margin-bottom: 10px;
+                }
+                .inputLogin{
+                    height: 30px;
+                    width: 200px;
+                    outline: none;
+                    border-radius: 10px;
+                    border: none;
+                }
             }
-            .inputLogin{
-                height: 30px;
-                width: 200px;
-                outline: none;
-                border-radius: 10px;
-                border: none;
+            .sectionAvatar{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .material-icons.arrow{
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 30px;
+                    width: 30px;
+                    color: white;
+                }
+                .loading{
+                    color: white;
+                }
             }
         }
         
