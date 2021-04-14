@@ -1,10 +1,14 @@
 import "./index.scss";
-import imgPerfil from "../../../img/imgPerfil.jpg"
-
+import {Link} from "react-router-dom";
 import {useEffect, useState} from 'react';
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
-
+import Bank from "../../../icons/bank.svg"
+import LongOut from "../../../icons/long_out.svg"
+import MyMovie from "../../../icons/my_movie.svg"
+import Register from "../../../icons/register.svg"
+import Edit from "../../../icons/edit.svg"
+import EditUser from "../../../icons/edit_user.svg"
 export default function DashboardMenu(props) {
 
 
@@ -22,9 +26,13 @@ export default function DashboardMenu(props) {
         user: "",
     });
 
+    const goToEditUser = () => {
+        history.push('/dashboard/editUser');
+    }
+ 
     const logout = () => {
       localStorage.removeItem('userId');
-        history.push('/');
+      history.push('/');
     };
 
     useEffect(() => {
@@ -33,16 +41,19 @@ export default function DashboardMenu(props) {
             const response = await axios.get(`${API}${resource}/${id}`);
             if(response.status === 200 && response.data){
                 setModel(response.data);
+            }else{
+                
             }
-        }
+        } 
         getUser();
     }, [])
 
     return(
        <div className="containerMenu bg-white">
            <div className="contPerfil">
-               <div className='card_info'>
-                <img src={model.avatar} className="imgPerfil" alt=""/>
+               <div  className='card_info'>
+               <img onClick={()=> goToEditUser()} className="edit" src={EditUser} alt=""/>
+                <img  src={model.avatar} className="imgPerfil" alt=""/>
                 <div className="row_info">
                     <h1 className="userName">
                         {model.name}
@@ -55,13 +66,13 @@ export default function DashboardMenu(props) {
             
            </div>
            <div className="contBtn">
-               <button className={`btn ${props.tab === 'bankMovie' ? 'active' : ''}`}>Banco De Peliculas</button>
-               <button className={`btn ${props.tab === 'registerMovie' ? 'active' : ''}`}>Registrar Pelicula</button>
-               <button className={`btn ${props.tab === 'myMovie' ? 'active' : ''}`}>Mis Peliculas</button>
-               <button className={`btn ${props.tab === 'perfil' ? 'active' : ''}`}>Perfil</button>
+               <Link to="/dashboard/bankMovie" className={`btn ${props.tab === 'bankMovie' ? 'active' : ''}`}> <img className={`iconBtn ${props.tab === 'bankMovie' ? 'iconBtnactive' : ''}`} src={Bank} alt=""/> Banco De Peliculas</Link>
+               <Link to="/dashboard/registerMovie" className={`btn ${props.tab === 'registerMovie' ? 'active' : ''}`}> <img className={`iconBtn ${props.tab === 'registerMovie' ? 'iconBtnactive' : ''}`} src={Register } alt=""/> Registrar Pelicula</Link>
+               <Link to="/dashboard/myMovie" className={`btn ${props.tab === 'myMovie' ? 'active' : ''}`}> <img className={`iconBtn ${props.tab === 'myMovie' ? 'iconBtnactive' : ''}`} src={MyMovie} alt=""/> Mis Peliculas</Link>
+               <Link to="/dashboard/editMovie" className={`btn ${props.tab === 'editMovie' ? 'active' : ''}`}> <img className={`iconBtn ${props.tab === 'editMovie' ? 'iconBtnactive' : ''}`}  src={Edit} alt=""/> Editar Pelicula</Link>
            </div>
            <div className="contBtnCerrarSesion">
-               <button className="btn logout" onClick={() => logout()}>Cerrar Sesion</button>
+               <button className="btn logout" onClick={() => logout()}> <img src={LongOut} alt=""/> Cerrar Sesion</button>
            </div>
        </div>
     )
