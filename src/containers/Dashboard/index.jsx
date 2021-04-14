@@ -4,13 +4,15 @@ import { useState, useEffect } from "react";
 import Menu from "../../components/dashboard/menu/index.jsx"
 import BankMovie from "../../components/dashboard/bankMovie/index.jsx"
 import MyMovie from "../../components/dashboard/myMovie/index.jsx"
+import EditUser from "../../components/dashboard/editUser/index.jsx"
+import EditMovie from "../../components/dashboard/editMovie/index.jsx"
 
 export default function DashboardContainer() {
 
     const {tab} = useParams();
-
+    console.log(tab);
     function validNotFound() {
-        if(tab !== 'bankMovie' && tab !== 'registerMovie' && tab !== "myMovie" && tab !== "profile" )  {
+        if(tab !== 'bankMovie' && tab !== 'registerMovie' && tab !== "myMovie" && tab !== "editMovie" && tab !== "editUser" )  {
            return <Redirect push to="/*" />
         }else {
             return (<Menu tab={tab}></Menu> )
@@ -35,9 +37,14 @@ export default function DashboardContainer() {
                     <MyMovie className={tab === 'myMovie' ? 'active' : ''}/>
                 )
                 break;
-                case "profile":
+                case "editMovie":
                     return(
-                        <div className={tab === 'profile' ? 'active' : ''}>profile</div>
+                        <EditMovie className={tab === 'editMovie' ? 'active' : ''}/>
+                    )
+                    break;
+                case "editUser":
+                    return(
+                        <EditUser className={tab === 'editUser' ? 'active' : ''}/>
                     )
                     break;
         

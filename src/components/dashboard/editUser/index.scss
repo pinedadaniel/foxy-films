@@ -1,0 +1,139 @@
+.containerEditUser{
+    width: calc(100% - 280px);
+    margin-left:30px ;
+    height: 100%;
+    border-radius: 18px;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    .contDatesRegister{
+        width: calc(50% - 10px);
+        height: 100%;
+        margin-right: 20px;
+        background-color:#0E0C5A ;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .titleRegister{
+            height: 20%;
+            color: white;
+            font-size: 25px;
+        }
+        .formRegister{
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .itemRegister{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-bottom:10px ;
+                .textRegister{
+                    color: white;
+                    font-size: 18px;
+                    margin: 7px;
+                    
+                }
+                .contGenero{
+                    display: flex;
+                    .genero{
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        .textGenero{
+                            font-size: 14px;
+                            font-weight: 300;
+                            color: white;
+                        }
+                    }
+                }
+                .inputRegister{
+                    height: 30px;
+                    width: 200px;
+                    outline: none;
+                    border-radius: 10px;
+                    border: none;
+                }
+                
+            }
+            
+            
+        }
+        .contBtnRegister{
+            height: 20%;
+            display: flex;
+            align-items: center;
+            .btnRegister{
+                background: transparent;
+                outline: none;
+                border-radius: 10px;
+                border:2px solid white;
+                color: white;
+                font-size: 18px;
+                padding: 10px; 
+                cursor: pointer;
+            }
+            .btnRegister:hover{
+                background: white;
+                color: #0E0C5A;
+            }
+        }
+        
+    }
+    .contDatesLogin{
+        width: calc(50% - 10px);
+        height: 100%;
+        background-color:#0E0C5A ;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .titleLogin{
+            height: 20%;
+            color: white;
+            font-size: 25px;
+        }
+        .formLogin{
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .textLogin{
+                color: white;
+                margin-bottom: 10px;
+            }
+            .inputLogin{
+                height: 30px;
+                width: 200px;
+                outline: none;
+                border-radius: 10px;
+                border: none;
+            }
+        }
+        
+        .contBtnLogin{
+            height: 20%;
+            display: flex;
+            align-items: center;
+            .btnLogin{
+                background: transparent;
+                outline: none;
+                border-radius: 10px;
+                border:2px solid white;
+                color: white;
+                font-size: 18px;
+                padding: 10px; 
+                cursor: pointer;
+            }
+            .btnLogin:hover{
+                background: white;
+                color: #0E0C5A;
+            }
+        }
+    }
+}
+
