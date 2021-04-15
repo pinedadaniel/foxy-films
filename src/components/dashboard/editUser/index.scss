@@ -6,6 +6,9 @@
     padding: 20px 25px;
     display: flex;
     align-items: center;
+    .bg-gray{
+        background-color: rgb(131, 131, 131)!important;
+    }
     .contDatesRegister{
         width: calc(50% - 10px);
         height: 100%;
@@ -132,9 +135,6 @@
                     width: 30px;
                     color: white;
                 }
-                .loading{
-                    color: white;
-                }
             }
         }
         
@@ -157,6 +157,28 @@
                 color: #0E0C5A;
             }
         }
+        .contAvatar{
+            width: 80px;
+            height: 100px;
+        }
+        
+    .avatar{
+        height: 80px;
+        width: 80px;
+        margin: 0;
+    }
+    .icon{
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width: 30px;    
+    }
+    .icon:hover{
+        background-color: rgba( 0, 0, 0, .4) ;
+        border-radius: 50%;
+    }
     }
 }
 

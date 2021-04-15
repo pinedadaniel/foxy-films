@@ -10,34 +10,48 @@ import women3 from '../../../img/avatar/women3.jpg';
 import women4 from '../../../img/avatar/women4.jpg';
 import women5 from '../../../img/avatar/women5.jpg';
 import LoadingWhite from '../../custom/loadingWhite/index.jsx';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import axios from "axios";
+
 export default function EditUserComponent(props) {
     const [currentAvatar, setCurrentAvatar] = useState(false);
-    const [info] = useState(props.info);
-    const [currentAvatarPosition, setCurrentAvatarPosition] = useState(0);
+    const [edit, setEdit] = useState(false);
+    const [info, setInfo] = useState({});
+    const API = 'http://localhost:5000';
+    const resource = '/users';
     const arrayMen = useMemo(() => [men1, men2, men3, men4, men5], []);
     const arrayWomen = useMemo(() =>[women1, women2, women3, women4, women5], []);
+    const [currentAvatarPosition, setCurrentAvatarPosition] = useState(0);
+    const [clone, setClone] = useState();
+
 
     function nextAvatar() {
         setCurrentAvatar(false);
         let max = '';
-        if (info.genero === 'men') {
-             max = arrayMen.length;
-        }else if(info.genero === 'women'){
-             max = arrayWomen.length;
+        if (info.gender === 'men') {
+            max = arrayMen.length;
+        }else if(info.gender === 'women'){
+            max = arrayWomen.length;
         }
+        console.log(info);
         if(currentAvatarPosition === (max - 1)) {
             setCurrentAvatarPosition(0);
         } else {
             setCurrentAvatarPosition(currentAvatarPosition + 1);
         }
+        if (info.gender === 'men') {
+            setCurrentAvatar(arrayMen[currentAvatarPosition]);
+        }else if(info.gender === 'women'){
+            setCurrentAvatar(arrayWomen[currentAvatarPosition]);
+        }
+        
     }
     function backAvatar() {
         setCurrentAvatar(false);
         let max = '';
-        if (info.genero === 'men') {
+        if (info.gender === 'men') {
              max = arrayMen.length;
-        }else if(info.genero === 'women'){
+        }else if(info.gender === 'women'){
              max = arrayWomen.length;
         }
         if(currentAvatarPosition === 0) {
@@ -45,26 +59,46 @@ export default function EditUserComponent(props) {
         } else {
             setCurrentAvatarPosition(currentAvatarPosition - 1);
         }
+        if (info.gender === 'men') {
+            setCurrentAvatar(arrayMen[currentAvatarPosition]);
+        }else if(info.gender === 'women'){
+            setCurrentAvatar(arrayWomen[currentAvatarPosition]);
+        }
     }
-    
+
+    const getUser = async () => {
+        const data = await axios.get(`${API}${resource}/${localStorage.getItem('userId')}`);
+        if (data.status === 200 && data.data) {
+            setInfo(data.data);
+            setCurrentAvatar(data.data.avatar);
+        }else{
+            alert('no se encontro el susuario');
+            
+        }
+
+    } 
+    useEffect(()=> {
+        getUser();
+    }, []);
+
 
     return(
        <div className="containerEditUser  bg-white">
            <div className="contDatesRegister">
                 <h1 className="titleRegister">Datos de registro</h1> 
                 <form className="formRegister">
-                    <div className="itemRegister">
+                    <label htmlFor='nombre' className="itemRegister">
                         <h2 className="textRegister">Nombre</h2>
-                        <input className="inputRegister" type="text"/>    
-                    </div> 
-                    <div className="itemRegister">
+                        <input readOnly={edit ? false : true} value={info.name} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} id='nombre' name='nombres' type="text"/>    
+                    </label> 
+                    <label htmlFor='apellido' className="itemRegister">
                         <h2 className="textRegister">Apellido</h2>
-                        <input className="inputRegister" type="text"/>    
-                    </div> 
-                    <div className="itemRegister">
+                        <input className="inputRegister  pdd-left-10" name='apellido' type="text"/>    
+                    </label> 
+                    <label className="itemRegister">
                         <h2 className="textRegister">Email</h2>
-                        <input className="inputRegister" type="email"/>    
-                    </div> 
+                        <input className="inputRegister  pdd-left-10" type="email"/>    
+                    </label> 
                     <div className="itemRegister">
                         <h2 className="textRegister">Genero</h2>
                         <div className="contGenero">
@@ -80,7 +114,7 @@ export default function EditUserComponent(props) {
                     </div>    
                 </form> 
                 <div className="contBtnRegister">
-                <button className="btnRegister">Editar</button>
+                <button onClick={() => setEdit(true)} className="btnRegister">Editar</button>
                 </div>
            </div>
            <div className="contDatesLogin">
@@ -99,9 +133,16 @@ export default function EditUserComponent(props) {
                         <input className="inputLogin" type="text"/>    
                     </div> 
                     <div className="sectionAvatar ">
-                            <span className="material-icons arrow" onClick={()=> backAvatar()}>west</span>          
-                            <LoadingWhite className="loading"/>
-                            <span className="material-icons arrow" onClick={()=> nextAvatar() }>east</span>
+                            <span className="material-icons icon arrow cursor-p" onClick={()=> backAvatar()}>west</span>
+                            <div className="contAvatar">
+                            
+                            {
+                                currentAvatar
+                                ?<img className="avatar d-flex aling-items-center justify-center mg-right-20 mg-left-20" alt="avatar" src={currentAvatar}/>
+                                :<LoadingWhite />
+                            }    
+                            </div> 
+                            <span className="material-icons icon arrow cursor-p" onClick={()=> nextAvatar() }>east</span>
                         </div>
                 </form>
                 <div className="contBtnLogin">
