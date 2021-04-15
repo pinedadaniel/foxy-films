@@ -16,7 +16,16 @@ import axios from "axios";
 export default function EditUserComponent(props) {
     const [currentAvatar, setCurrentAvatar] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [info, setInfo] = useState({});
+    const [info, setInfo] = useState({
+        name: '',
+        lastName: '',
+        email: '',
+        gender: '',
+        user: '',
+        password: '',
+        confirmPassword: ''
+ 
+    });
     const API = 'http://localhost:5000';
     const resource = '/users';
     const arrayMen = useMemo(() => [men1, men2, men3, men4, men5], []);
@@ -36,43 +45,53 @@ export default function EditUserComponent(props) {
     }
 
     function nextAvatar() {
-        setCurrentAvatar(false);
-        let max = '';
-        if (info.gender === 'men') {
-            max = arrayMen.length;
-        }else if(info.gender === 'women'){
-            max = arrayWomen.length;
-        }
-        console.log(info);
-        if(currentAvatarPosition === (max - 1)) {
-            setCurrentAvatarPosition(0);
-        } else {
-            setCurrentAvatarPosition(currentAvatarPosition + 1);
-        }
-        if (info.gender === 'men') {
-            setCurrentAvatar(arrayMen[currentAvatarPosition]);
-        }else if(info.gender === 'women'){
-            setCurrentAvatar(arrayWomen[currentAvatarPosition]);
+        if (edit) {
+            
+            setCurrentAvatar(false);
+            let max = '';
+            if (info.gender === 'men') {
+                max = arrayMen.length;
+            }else if(info.gender === 'women'){
+                max = arrayWomen.length;
+            }
+            console.log(info);
+            if(currentAvatarPosition === (max - 1)) {
+                setCurrentAvatarPosition(0);
+            } else {
+                setCurrentAvatarPosition(currentAvatarPosition + 1);
+            }
+            if (info.gender === 'men') {
+                setCurrentAvatar(arrayMen[currentAvatarPosition]);
+            }else if(info.gender === 'women'){
+                setCurrentAvatar(arrayWomen[currentAvatarPosition]);
+            }
+        }else{
+            return
         }
         
     }
     function backAvatar() {
-        setCurrentAvatar(false);
-        let max = '';
-        if (info.gender === 'men') {
-             max = arrayMen.length;
-        }else if(info.gender === 'women'){
-             max = arrayWomen.length;
-        }
-        if(currentAvatarPosition === 0) {
-            setCurrentAvatarPosition(max - 1);
-        } else {
-            setCurrentAvatarPosition(currentAvatarPosition - 1);
-        }
-        if (info.gender === 'men') {
-            setCurrentAvatar(arrayMen[currentAvatarPosition]);
-        }else if(info.gender === 'women'){
-            setCurrentAvatar(arrayWomen[currentAvatarPosition]);
+        if (edit) {
+            
+            setCurrentAvatar(false);
+            let max = '';
+            if (info.gender === 'men') {
+                max = arrayMen.length;
+            }else if(info.gender === 'women'){
+                max = arrayWomen.length;
+            }
+            if(currentAvatarPosition === 0) {
+                setCurrentAvatarPosition(max - 1);
+            } else {
+                setCurrentAvatarPosition(currentAvatarPosition - 1);
+            }
+            if (info.gender === 'men') {
+                setCurrentAvatar(arrayMen[currentAvatarPosition]);
+            }else if(info.gender === 'women'){
+                setCurrentAvatar(arrayWomen[currentAvatarPosition]);
+            }
+        }else{
+            return
         }
     }
 
@@ -83,13 +102,25 @@ export default function EditUserComponent(props) {
             setCurrentAvatar(data.data.avatar);
         }else{
             alert('no se encontro el susuario');
-            
         }
 
     } 
+
+    function handleChange(e) {
+        setInfo ({...info, 
+            [e.target.name]: e.target.value})
+            
+    
+    }
+
     useEffect(()=> {
         getUser();
-    }, []);
+        if (info.gender === 'men') {
+            document.getElementById('men').checked = true;
+        }else if(info.gender === 'women'){
+            document.getElementById('women').checked = true;    
+        }
+    }, [info]);
 
 
     return(
@@ -99,26 +130,26 @@ export default function EditUserComponent(props) {
                 <form className="formRegister">
                     <label htmlFor='nombre' className="itemRegister">
                         <h2 className="textRegister">Nombre</h2>
-                        <input readOnly={edit ? false : true} value={info.name} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} id='nombre' name='name' type="text"/>    
+                        <input readOnly={edit ? false : true} value={info.name} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} onChange={(e)=> handleChange(e)} id='nombre' name='name' type="text"/>    
                     </label> 
                     <label htmlFor='apellido' className="itemRegister">
                         <h2 className="textRegister">Apellido</h2>
-                        <input readOnly={edit ? false : true} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  value={info.lastName} name='lastName' type="text"/>    
+                        <input readOnly={edit ? false : true} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  value={info.lastName} onChange={(e)=> handleChange(e)} name='lastName' type="text"/>    
                     </label> 
                     <label className="itemRegister">
                         <h2 className="textRegister">Email</h2>
-                        <input readOnly={edit ? false : true}  className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} value={info.email} name='email' type="email"/>    
+                        <input readOnly={edit ? false : true}  className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} value={info.email} onChange={(e)=> handleChange(e)} name='email' type="email"/>    
                     </label> 
                     <div className="itemRegister">
                         <h2 className="textRegister">Genero</h2>
                         <div className="contGenero">
                             <label htmlFor="men" className="genero ">
                                 <h2 className="textGenero">MASCULINO</h2>
-                                <input  className="radio" type="radio" name="gender"  value="men"  id="men"/>
+                                <input  className="radio" type="radio" name="gender"  onChange={(e)=> handleChange(e)} value="men"  id="men"/>
                             </label>
                             <label htmlFor="women" className="genero">
                                 <h2 className="textGenero">FEMENINO</h2>
-                                <input  className="radioGenero" type="radio" name="gender"  value="women"  id="women"/>
+                                <input  className="radioGenero" type="radio" name="gender" onChange={(e)=> handleChange(e)}  value="women"  id="women"/>
                                 
                             </label>
                         </div>
@@ -133,15 +164,15 @@ export default function EditUserComponent(props) {
                 <form className="formLogin">
                     <div className="itemLogin">
                         <h2 className="textLogin">Nombre De Usuario</h2>
-                        <input readOnly={edit ? false : true} className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}   type="text" value={info.user} name='user'/>    
+                        <input readOnly={edit ? false : true} className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} onChange={(e)=> handleChange(e)}   type="text" value={info.user} name='user'/>    
                     </div> 
                     <div className="itemLogin">
                         <h2 className="textLogin">Contraseña</h2>
-                        <input readOnly={edit ? false : true}className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  type="text" value={info.password} name='password'/>    
+                        <input readOnly={edit ? false : true}className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} onChange={(e)=> handleChange(e)} type="text" value={info.password} name='password'/>    
                     </div> 
                     <div className="itemLogin">
                         <h2 className="textLogin">Confirmar Contraseña</h2>
-                        <input readOnly={edit ? false : true} className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  type="text"/>    
+                        <input readOnly={edit ? false : true} className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} onChange={(e)=> handleChange(e)}  type="text" name='confirmPassword'/>    
                     </div> 
                     <div className="sectionAvatar ">
                             <span className="material-icons icon arrow cursor-p" onClick={()=> backAvatar()}>west</span>
