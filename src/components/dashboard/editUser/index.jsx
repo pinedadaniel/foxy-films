@@ -24,6 +24,16 @@ export default function EditUserComponent(props) {
     const [currentAvatarPosition, setCurrentAvatarPosition] = useState(0);
     const [clone, setClone] = useState();
 
+    function handleEdit() {
+        if (!edit) {
+            setEdit(true);
+            return
+        }else{
+            setEdit(false);
+            return
+        }
+        
+    }
 
     function nextAvatar() {
         setCurrentAvatar(false);
@@ -89,32 +99,33 @@ export default function EditUserComponent(props) {
                 <form className="formRegister">
                     <label htmlFor='nombre' className="itemRegister">
                         <h2 className="textRegister">Nombre</h2>
-                        <input readOnly={edit ? false : true} value={info.name} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} id='nombre' name='nombres' type="text"/>    
+                        <input readOnly={edit ? false : true} value={info.name} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} id='nombre' name='name' type="text"/>    
                     </label> 
                     <label htmlFor='apellido' className="itemRegister">
                         <h2 className="textRegister">Apellido</h2>
-                        <input className="inputRegister  pdd-left-10" name='apellido' type="text"/>    
+                        <input readOnly={edit ? false : true} className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  value={info.lastName} name='lastName' type="text"/>    
                     </label> 
                     <label className="itemRegister">
                         <h2 className="textRegister">Email</h2>
-                        <input className="inputRegister  pdd-left-10" type="email"/>    
+                        <input readOnly={edit ? false : true}  className={`inputRegister pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`} value={info.email} name='email' type="email"/>    
                     </label> 
                     <div className="itemRegister">
                         <h2 className="textRegister">Genero</h2>
                         <div className="contGenero">
                             <label htmlFor="men" className="genero ">
-                                <input className="radio" type="radio" name="genero"  value="men" id="men"/>
                                 <h2 className="textGenero">MASCULINO</h2>
+                                <input  className="radio" type="radio" name="gender"  value="men"  id="men"/>
                             </label>
                             <label htmlFor="women" className="genero">
-                                <input className="radioGenero" type="radio" name="genero"  value="women" id="women"/>
                                 <h2 className="textGenero">FEMENINO</h2>
+                                <input  className="radioGenero" type="radio" name="gender"  value="women"  id="women"/>
+                                
                             </label>
                         </div>
                     </div>    
                 </form> 
                 <div className="contBtnRegister">
-                <button onClick={() => setEdit(true)} className="btnRegister">Editar</button>
+                <button onClick={() => handleEdit()} className="btnRegister">Editar</button>
                 </div>
            </div>
            <div className="contDatesLogin">
@@ -122,15 +133,15 @@ export default function EditUserComponent(props) {
                 <form className="formLogin">
                     <div className="itemLogin">
                         <h2 className="textLogin">Nombre De Usuario</h2>
-                        <input className="inputLogin" type="text"/>    
+                        <input readOnly={edit ? false : true} className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}   type="text" value={info.user} name='user'/>    
                     </div> 
                     <div className="itemLogin">
                         <h2 className="textLogin">Contraseña</h2>
-                        <input className="inputLogin" type="text"/>    
+                        <input readOnly={edit ? false : true}className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  type="text" value={info.password} name='password'/>    
                     </div> 
                     <div className="itemLogin">
                         <h2 className="textLogin">Confirmar Contraseña</h2>
-                        <input className="inputLogin" type="text"/>    
+                        <input readOnly={edit ? false : true} className={`inputLogin pdd-left-10 ${edit ? 'bg-white' : 'bg-gray'}`}  type="text"/>    
                     </div> 
                     <div className="sectionAvatar ">
                             <span className="material-icons icon arrow cursor-p" onClick={()=> backAvatar()}>west</span>
