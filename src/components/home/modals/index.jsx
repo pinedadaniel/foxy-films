@@ -249,7 +249,7 @@ export default function ModalHome(props) {
                             <span className="material-icons icon color-blue cursor-p" onClick={()=> backAvatar()}>west</span>          
                             {
                                 currentAvatar
-                                ? <img className="avatar d-flex aling-items-center justify-center mg-right-20 mg-left-20" alt="avatar" src={currentAvatar}/>
+                                ? <img className="  avatar d-flex aling-items-center justify-center mg-right-20 mg-left-20" alt="avatar" src={currentAvatar}/>
                                 : <Loading/>
                             }
                            

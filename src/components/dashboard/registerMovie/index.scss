@@ -8,12 +8,21 @@
     height: 100%;
     .contLeft{
         width: 40%;
+        height: 100%;
         padding: 20px;
         background-color: #0E0C5A;
         border-radius: 8px;
         margin-right: 20px;
         display: flex;
         flex-direction: column;
+        
+        .formRregistermovieScroll{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow-y: scroll;
+            padding-right: 8px;
+
         .inputRegistermovie{
             height: 35px;
             border-radius: 4px;
@@ -21,6 +30,8 @@
             outline: none;
             padding: 0 10px 0 10px;
             margin-bottom: 10px;
+            background-color: white;
+            
             
             
         }
@@ -37,12 +48,70 @@
         .radioRegisterMovie{
             margin: 0;
         }
+        .contSelect{
+            width: 100%;
+            height: 105px;
+            .selectPopularity{
+                width: 100%;
+                height: 35px;
+            }
+            .labelSelect{
+
+                height: 35px;
+                border-radius: 4px;
+                border: 1px solid #0E0C5A ;
+                outline: none;
+                padding: 0 10px 0 10px;
+                display: flex;
+                align-items: center;
+                background-color: white;
+                
+                
+            }
+        }
+        
+        .selectPopularity{
+            cursor: text;
+            height: 35px;
+            outline: none;
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px 0 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        }
+        .formRregistermovieScroll::-webkit-scrollbar {
+            width: 8px;     
+            height: 8px;   
+            border:2px solid grey;
+            border-radius: 10px;
+            background: transparent;  
+            
+        }
+        .formRregistermovieScroll::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 4px;
+
+        }
     }
     .conRight{
         border-radius: 8px;
         padding: 20px;
         background-color: #0E0C5A;
         width: 55%;
+        
+        height: 100%;
+        .formRregistermovieScroll{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow-y: scroll;
+            padding-right: 8px;
+
         .img{
             background-color: red;
         }
@@ -91,4 +160,18 @@
             cursor: pointer;
         }
     }
+}
+    .formRregistermovieScroll::-webkit-scrollbar {
+        width: 8px;     
+        height: 8px;   
+        border:2px solid grey;
+        border-radius: 10px;
+        background: transparent;  
+    
+    }
+    .formRregistermovieScroll::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 4px;
+
+}
 }

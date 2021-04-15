@@ -3,10 +3,10 @@ import {useParams, Redirect} from "react-router-dom";
 import Menu from "../../components/dashboard/menu/index.jsx";
 import BankMovie from "../../components/dashboard/bankMovie/index.jsx";
 import RegisterMovie from '../../components/dashboard/registerMovie/index';
-import { useState, useEffect } from "react";
-import MyMovie from "../../components/dashboard/myMovie/index.jsx"
-import EditUser from "../../components/dashboard/editUser/index.jsx"
-import EditMovie from "../../components/dashboard/editMovie/index.jsx"
+import { useEffect } from "react";
+import MyMovie from "../../components/dashboard/myMovie/index.jsx";
+import EditUser from "../../components/dashboard/editUser/index.jsx";
+import EditMovie from "../../components/dashboard/editMovie/index.jsx";
 
 export default function DashboardContainer() {
 

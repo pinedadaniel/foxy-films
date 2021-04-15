@@ -1,10 +1,37 @@
+import { useState } from "react";
 import "./index.scss";
 export default function RegisterMovieComponent(props) {
+    const [open, setOpen] = useState(false);
+    const [textContet, setTextContet] = useState('');
+
+    function handleOpen() {
+        if (!open) {
+            setOpen(true);
+            return
+        }else{
+            setOpen(false);
+            return
+        }
+        
+    }
+
+    function handlePopularity(e) {
+
+        if (e === 'alta') {
+            setTextContet('Alta')
+        }else if (e === 'media') {
+            setTextContet('Media')
+        }else if (e === 'baja') {
+        setTextContet('Baja')
+            
+        }
+        
+    }
     return(
        <div className="contRegisterMovieMain d-flex   bg-white">
            <div className="contLeft  ">
-               <form >
-                   <label htmlFor="titulo" className='cursor-p'>
+               <form  className='formRregistermovieScroll'>
+                   <label htmlFor="titulo" className='cursor-p w-100'>
                        <h1 className=" font-14 color-white mg-bot-10">TITULO</h1>
                        <input autoComplete='off' className="w-100 inputRegistermovie" type="text" name="title" id="titulo"/>
                    </label>
@@ -21,12 +48,23 @@ export default function RegisterMovieComponent(props) {
                    
                    <label htmlFor="duracion" className='cursor-p'>
                        <h1 className=" font-14 color-white mg-bot-10">DURACION</h1>
-                       <input autoComplete='off' className="w-100 inputRegistermovie" type="number" name="duration" id="duracion"/>
+                       <input autoComplete='off' className="w-33 inputRegistermovie" type="number" name="duration" placeholder='HH' id="duracion"/>
+                       <input autoComplete='off' className="w-33 inputRegistermovie" type="number" name="duration" placeholder='MM' id="duracion"/>
+                       <input autoComplete='off' className="w-33 inputRegistermovie" type="number" name="duration" placeholder='SS' id="duracion"/>
+
                    </label>
 
-                   <label htmlFor="popularidad" className='cursor-p'>
+                   <label htmlFor="popularidad" className='cursor-p mg-bot-10'>
                        <h1 className=" font-14 color-white mg-bot-10">POPULARIDAD</h1>
-                       <input autoComplete='off' className="w-100 inputRegistermovie" type="text" name="popularity" id="popularidad"/>
+                       <div htmlFor="" onClick={()=> handleOpen()} className='w-100 selectPopularity'>{textContet ? textContet : 'Seleccione popularidad'}</div>
+                       <div className={`d-flex-column contSelect ${open ? 'd-flex' : 'd-none'} `}> 
+                           <label className="cursor-p labelSelect bg-white" htmlFor="" onClick={()=> handlePopularity('alta')}>Alta</label>
+                           <label className="cursor-p  labelSelect" htmlFor="" onClick={()=> handlePopularity('media')}>Media</label>
+
+                           <label className="cursor-p labelSelect" htmlFor="" onClick={()=> handlePopularity('baja')}>Baja</label>
+
+
+                       </div>
                    </label>
                    
                    <label htmlFor="ingresos" className='cursor-p'>
@@ -37,15 +75,15 @@ export default function RegisterMovieComponent(props) {
                    <h1 className=" font-14 color-white mg-bot-10">TIPO</h1>
                    <div htmlFor="tipo" className="d-flex alint-items-center ">
                        
-                        <label htmlFor="pelicula " className="cursor-p d-flex aling-items-center mg-right-10">
+                        <label htmlFor="pelicula" className="cursor-p d-flex aling-items-center mg-right-10">
                             
                             <h1  className=" font-14 color-white mg-right-10 u-regular">PELICULA: </h1>
-                            <input type="radio" name="movie" id="pelicula" className="radioRegisterMovie"/>
+                            <input type="radio" name="tipo" id="pelicula" className="radioRegisterMovie"/>
                         </label>
                         <label htmlFor="serie" className="cursor-p d-flex aling-items-center">
                             
                             <h1  className=" font-14 color-white u-regular mg-right-10 ">SERIE: </h1>
-                            <input type="radio" name="serie" id="serie"  className="radioRegisterMovie "/>
+                            <input type="radio" name="tipo" id="serie"  className="radioRegisterMovie "/>
 
                         </label>
                    </div>
@@ -53,7 +91,7 @@ export default function RegisterMovieComponent(props) {
                </form>
            </div>
            <div className="conRight">
-               <form className="d-flex-column aling-items-center" >
+               <form className="d-flex-column aling-items-center formRregistermovieScroll " >
                    <div className='d-flex mg-bot-30'>
                        
                    <h1 className=" font-14 color-white mg-bot-10 w-100">GENEROS</h1>
