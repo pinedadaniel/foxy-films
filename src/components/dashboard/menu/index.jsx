@@ -1,6 +1,6 @@
 import "./index.scss";
 import {Link} from "react-router-dom";
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import Bank from "../../../icons/bank.svg"
@@ -9,9 +9,14 @@ import MyMovie from "../../../icons/my_movie.svg"
 import Register from "../../../icons/register.svg"
 import Edit from "../../../icons/edit.svg"
 import EditUser from "../../../icons/edit_user.svg"
+import Alert from "../../custom/Alert/index.jsx";
 export default function DashboardMenu(props) {
 
-
+    const [switchAlert, setSwitchAlert] = useState(false);
+    const [alert, setAlert] = useState({
+        type: false,
+        message: '',
+    });
     const history = useHistory();
     const API = 'http://localhost:5000';
     const resource = '/users';
@@ -29,7 +34,19 @@ export default function DashboardMenu(props) {
     const goToEditUser = () => {
         history.push('/dashboard/editUser');
     }
+    const closeAlert = () =>{
+        setSwitchAlert(false)
+    }
  
+    const propsAlert = {
+        open: switchAlert,
+        type: alert.type,
+        message: alert.message,
+        close: closeAlert
+    }
+
+
+    
     const logout = () => {
       localStorage.removeItem('userId');
       history.push('/');
@@ -37,18 +54,32 @@ export default function DashboardMenu(props) {
 
     useEffect(() => {
         async function getUser() {
+            try {
             const id = localStorage.getItem('userId');
             const response = await axios.get(`${API}${resource}/${id}`);
+            console.log(response);
             if(response.status === 200 && response.data){
                 setModel(response.data);
             }else{
-                
+                setAlert({
+                    type: false,
+                    message: 'Usuario no encontrado'
+                });
+                setTimeout(() => {
+                    history.push('/');
+                }, 2000);
             }
+            } catch (error) {
+                console.log(error)
+            }
+            
         } 
         getUser();
     }, [])
 
     return(
+        <React.Fragment>
+        <Alert {...propsAlert} />
        <div className="containerMenu bg-white">
            <div className="contPerfil">
                <div  className='card_info'>
@@ -75,5 +106,6 @@ export default function DashboardMenu(props) {
                <button className="btn logout" onClick={() => logout()}> <img src={LongOut} alt=""/> Cerrar Sesion</button>
            </div>
        </div>
+       </React.Fragment>
     )
 }

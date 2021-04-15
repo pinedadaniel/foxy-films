@@ -63,7 +63,7 @@ export default function ComponentBodyHome() {
         setMode(checked);
     }
 
-    function handleRegister(e) {
+    function handleRegister() {
         if (!datos.nombre) {
             setAlert({
                 type: false,
