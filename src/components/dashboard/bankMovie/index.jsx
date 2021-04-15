@@ -83,6 +83,16 @@ export default function BankMovieComponent(props) {
                             </div>
 
                         </div>
+                        <div title={`img_${checkType}`} className="card">
+                        <img alt={`img_${checkType}`}  className="imgMovie" src={imgMovie} />
+                            <div className="itemsCard">
+                                <span className="material-icons eye">
+                                     visibility
+                                </span>
+                                <h1 className="nameMovie">movie</h1>
+                            </div>
+
+                        </div>
                         
                    </div>
                    
