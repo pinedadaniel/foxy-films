@@ -98,6 +98,24 @@
         "3": "drama"
       },
       "id": 4
+    },
+    {
+      "titulo": "dsdsd",
+      "lenguaje": "sdsd",
+      "pais": "sdsd",
+      "duracion": "425",
+      "popularidad": "sdsd",
+      "ingresos": "45454",
+      "tipo": "pelicula",
+      "avatar": "blob:http://localhost:3000/d94b4596-f5bc-4f33-8268-a3134b06a82d",
+      "descripcion": "fgf",
+      "likes": 0,
+      "views": 0,
+      "creator": "1",
+      "categorias": {
+        "0": "comedia"
+      },
+      "id": 5
     }
   ]
 }
