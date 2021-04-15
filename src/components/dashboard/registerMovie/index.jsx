@@ -51,7 +51,7 @@ export default function RegisterMovieComponent(props) {
      duracion:"",
      popularidad:"",
      ingresos:"",
-     tipo:"",
+     tipo:false,
      avatar:"",
      descripcion:""
     })
@@ -67,7 +67,7 @@ export default function RegisterMovieComponent(props) {
             [check.target.name]: check.target.checked 
        });
        if(check.target.checked) {
-           setCategories([...categories, check.target.checked]);
+           setCategories([...categories,  check.target.name]);
        }
     }
     function handleRegister() {
@@ -185,7 +185,50 @@ export default function RegisterMovieComponent(props) {
         submitMovie(datosMovie);
 
     }
-    async function submitMovie(request) {
+    function clearRegister() {
+        setCategorias({
+            accion:false,
+            animadas:false,
+            aventura:false,
+            cienciaFiccion:false,
+            comedia:false,
+            crimen:false,
+            documentales:false,
+            drama:false,
+            fantasia:false,
+            romance:false,
+            suspenso:false,
+            terror:false,
+            mas18:false
+         });
+        setDatosMovie({
+            titulo:"",
+            lenguaje:"",
+            pais:"",
+            duracion:"",
+            popularidad:"",
+            ingresos:"",
+            tipo:false,
+            avatar:"",
+            descripcion:""
+           })
+           categories.forEach(categorie => {
+            document.getElementById(categorie).checked = false;
+           });
+           document.getElementById("pelicula").checked = false;
+           document.getElementById("serie").checked = false;
+    }
+    async function submitMovie(data) {
+            const request = {
+                ...data,
+                ['avatar']: file,
+                ['likes']: 0,
+                ['views']: 0,
+                ['creator']: localStorage.getItem('userId'),
+                ["categorias"]:{
+                    ...categories
+                }
+            }
             const response = await axios.post(API+resource, request);
 
             if(response.status === 201 && response.data){
@@ -194,17 +237,19 @@ export default function RegisterMovieComponent(props) {
                     message:`La ${datosMovie.tipo} se registro exitosamente!`
                 });
                 setShowAlert(true);
+                clearRegister();
                 
             } else {
                 setAlert({
                     type: false,
                     message:`no se puede registrar su ${datosMovie.tipo}, intentelo mas tarde`
                 });
+
                 setShowAlert(true);
                 
+                
             }
-        
-    }
+               }
     
     return(
        <React.Fragment>
@@ -330,7 +375,7 @@ export default function RegisterMovieComponent(props) {
                                 <h2 className=" font-14 color-white mg-right-10 u-regular">Romance</h2>
                             </label>                
                             <label htmlFor="+18" className="d-flex cursor-p  aling-items-cente">
-                                <input onChange={(e)=>handleGenerosMovie(e)} type="checkbox" name="+18" id="+18"  className='cursor-p '/>
+                                <input onChange={(e)=>handleGenerosMovie(e)} type="checkbox" name="mas18" id="mas18"  className='cursor-p '/>
                                 <h2 className=" font-14 color-white mg-right-10 u-regular"> +18</h2>
                             </label>
                             <label htmlFor='fantasia' className="d-flex cursor-p  aling-items-center ">
