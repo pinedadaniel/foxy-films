@@ -1,7 +1,12 @@
 import "./index.scss";
 import imgMovie from "../../../img/movie.jpg"
-import { useState } from "react";
+import axios from "axios";
+import React, {useEffect, useState} from 'react';
 export default function MyMovieComponent(props) {
+    const API = 'http://localhost:5000';
+    const resource = '/movies';
+    const [id, setId] = useState("");
+    const [movies, setMovies] = useState([]);
     const [checkType, setcheckType] = useState("movies");
     const [categorias, setCategorias] = useState([]);
 
@@ -66,6 +71,21 @@ export default function MyMovieComponent(props) {
             });
         }
     }
+    useEffect(() => {
+        async function getMovie() {
+            try {
+                const userId = localStorage.getItem('userId');
+            const response = await axios.get(`${API}${resource}`);
+            if(response.status === 200 && response.data){
+                setId(userId);
+                setMovies(response.data);
+            }
+            } catch (error) {
+                console.log(error)
+            }
+        } 
+        getMovie();
+    }, [])
 
     return(
        <div className="containerMyMovie  bg-white">
@@ -73,16 +93,21 @@ export default function MyMovieComponent(props) {
                <input placeholder={`Buscar mis ${checkType==="movies" ?"peliculas" : "series"}`} className="searchBankMovie bg-white" type="search"/>
                <div className="contListMovies  bg-white ">
                    <div className="contCards">
-                        <div title={`img_${checkType}`} className="card">
-                        <img alt={`img_${checkType}`}  className="imgMovie" src={imgMovie} />
-                            <div className="itemsCard">
-                                <span className="material-icons eye">
-                                     visibility
-                                </span>
-                                <h1 className="nameMovie">movie</h1>
+                   {
+                            movies.map((movie,index) =>
+                            movie.creator === id?
+                            <div title={movie.duracion} key={index} className="card">
+                            <img alt={movie.titulo}  className="imgMovie" src={movie.avatar} />
+                                <div className="itemsCard">
+                                    <span className="material-icons eye">
+                                         visibility
+                                    </span>
+                                    <h1 className="nameMovie">{movie.titulo}</h1>
+                                </div>
                             </div>
-
-                        </div>
+                            :""
+                            )
+                        }
                         
                    </div>
                    
