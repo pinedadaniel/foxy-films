@@ -68,7 +68,7 @@ export default function MyMovieComponent(props) {
     }
 
     return(
-       <div className="containerBankMovie  bg-white">
+       <div className="containerMyMovie  bg-white">
            <div className="contBankMovieLeft ">
                <input placeholder={`Buscar mis ${checkType==="movies" ?"peliculas" : "series"}`} className="searchBankMovie bg-white" type="search"/>
                <div className="contListMovies  bg-white ">
