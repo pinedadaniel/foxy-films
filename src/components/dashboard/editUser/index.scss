@@ -80,6 +80,11 @@
                 cursor: pointer;
             }
             .btnRegister:hover{
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .active{
+                
                 background: white;
                 color: #0E0C5A;
             }
@@ -156,6 +161,8 @@
                 background: white;
                 color: #0E0C5A;
             }
+
+            
         }
         .contAvatar{
             width: 80px;

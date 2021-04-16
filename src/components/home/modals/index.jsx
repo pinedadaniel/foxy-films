@@ -235,15 +235,15 @@ export default function ModalHome(props) {
                     <form id="formCreateAcount" className="d-flex-column">
                         <label htmlFor="nickname"  className="mg-top-10" >
                             <h1 className="u-bold mg-bot-10 font-14 cursor-p" >NOMBRE DE USUARIO</h1>
-                            <input type="text" name="nickname" id="nickname" onChange={(e)=>handleChange(e)} className="input w-100"/>
+                            <input autoComplete='off'  type="text" name="nickname" id="nickname" onChange={(e)=>handleChange(e)} className="input w-100"/>
                         </label>
                         <label htmlFor="password" className="mg-top-10">
                             <h1 className="u-bold mg-bot-10 font-14 cursor-p">CONTRASEÑA</h1>
-                            <input type="password" name="password" id="password" onChange={(e)=>handleChange(e)} className="input w-100"/>
+                            <input autoComplete='off' type="password" name="password" id="password" onChange={(e)=>handleChange(e)} className="input w-100"/>
                         </label>
                         <label htmlFor="confirm"  className="mg-top-10">
                             <h1 className="u-bold mg-bot-10 font-14 cursor-p">CONFIRMAR CONTRASEÑA</h1>
-                            <input type="password" name="confirm" id="confirm" onChange={(e)=>setConfirm(e.target.value)} className="input w-100"/>
+                            <input autoComplete='off' type="password" name="confirm" id="confirm" onChange={(e)=>setConfirm(e.target.value)} className="input w-100"/>
                         </label>
                         <div className="sectionAvatar d-flex mg-top-35 aling-items-center justify-center">
                             <span className="material-icons icon color-blue cursor-p" onClick={()=> backAvatar()}>west</span>          

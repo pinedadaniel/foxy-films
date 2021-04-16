@@ -284,7 +284,7 @@ export default function EditUserComponent(props) {
                     </div>    
                 </form> 
                 <div className="contBtnRegister">
-                <button onClick={() => handleEdit()} className="btnRegister">Editar</button>
+                <button onClick={() => handleEdit()} className={`btnRegister ${edit ? 'active' : ''}`}>Editar</button>
                 </div>
            </div>
            <div className="contDatesLogin">
