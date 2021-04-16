@@ -60,17 +60,16 @@ export default function DashboardMenu(props) {
             console.log(response);
             if(response.status === 200 && response.data){
                 setModel(response.data);
-            }else{
+            }
+            } catch (error) {
                 setAlert({
                     type: false,
                     message: 'Usuario no encontrado'
                 });
+                setSwitchAlert(true);
                 setTimeout(() => {
                     history.push('/');
-                }, 2000);
-            }
-            } catch (error) {
-                console.log(error)
+                }, 3000);
             }
             
         } 

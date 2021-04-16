@@ -1,23 +1,29 @@
-import { useState } from "react";
 import "./index.scss";
 import axios from "axios";
 import React, { useState} from 'react';
 import Alert from '../../custom/Alert/index';
+import {getBase64} from '../../../utils/convertBase64/index';
 export default function RegisterMovieComponent(props) {
     const API = 'http://localhost:5000';
     const resource = '/movies';
+    const [textContet, setTextContet] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [file, setFile] = useState(false);
+    const [src, setSrc] = useState(false);
     const [alert, setAlert] = useState({
         type: false,
         message: '',
     });
-    
+   const [time, setTime] = useState({
+       horas: "",
+       minutos: "",
+       segundos: ""
+   });
     function handleFiles(e) {
         const imageUrl = URL.createObjectURL(e.target.files[0]);
         setFile(imageUrl);
+        setSrc(e.target.files[0]);
     }
-
 
     const propsAlert = {
         open: showAlert,
@@ -50,18 +56,21 @@ export default function RegisterMovieComponent(props) {
      lenguaje:"",
      pais:"",
      duracion:"",
-     popularidad:"",
+     popularidad: "",
      ingresos:"",
      tipo:false,
      avatar:"",
      descripcion:""
     })
+
+  
     function handleDatosMovie(evento) {
         setDatosMovie({
             ...datosMovie,
             [evento.target.name]:evento.target.value
         })
     }
+   
     function handleGenerosMovie(check) {
        setCategorias({
            ...categorias,
@@ -106,8 +115,9 @@ export default function RegisterMovieComponent(props) {
             
         }
         
-        if (!datosMovie.duracion) {
-            
+        const finalTime = `${time.horas}:${time.minutos}:${time.segundos}`;
+        
+        if (finalTime.length <= 4) {
             setAlert({
                 type: false,
                 message:'la duracion es requerida'
@@ -115,10 +125,16 @@ export default function RegisterMovieComponent(props) {
             )
             setShowAlert(true)
             return
-            
+        } else {
+            setDatosMovie({
+                ...datosMovie,
+                ['duracion']: finalTime
+            })
+            console.log(datosMovie.duracion)
+            console.log(finalTime);
         }
+        
         if (!datosMovie.popularidad) {
-            
             setAlert({
                 type: false,
                 message:'la popularidad es requerida'
@@ -128,6 +144,7 @@ export default function RegisterMovieComponent(props) {
             return
             
         }
+        console.log(datosMovie.duracion);
         if (!datosMovie.ingresos) {
             
             setAlert({
@@ -182,6 +199,7 @@ export default function RegisterMovieComponent(props) {
             return
             
         }
+        console.log(datosMovie.duracion);
         setShowAlert(false);
         submitMovie(datosMovie);
 
@@ -213,6 +231,14 @@ export default function RegisterMovieComponent(props) {
             avatar:"",
             descripcion:""
            })
+           setTextContet("");
+           setTime({
+            horas: "",
+            minutos: "",
+            segundos: ""
+        });
+           setFile(false);
+           setSrc(false)
            categories.forEach(categorie => {
             document.getElementById(categorie).checked = false;
            });
@@ -220,41 +246,38 @@ export default function RegisterMovieComponent(props) {
            document.getElementById("serie").checked = false;
     }
     async function submitMovie(data) {
-            const request = {
-                ...data,
-                ['avatar']: file,
-                ['likes']: 0,
-                ['views']: 0,
-                ['creator']: localStorage.getItem('userId'),
-                ["categorias"]:{
-                    ...categories
+            getBase64(src, async(src) => {
+                const request = {
+                    ...data,
+                    ['avatar']: src,
+                    ['likes']: 0,
+                    ['views']: 0,
+                    ['creator']: localStorage.getItem('userId'),
+                    ["categorias"]:{
+                        ...categories
+                    }
                 }
-            }
-            const response = await axios.post(API+resource, request);
-
-            if(response.status === 201 && response.data){
-                setAlert({
-                    type: true,
-                    message:`La ${datosMovie.tipo} se registro exitosamente!`
-                });
-                setShowAlert(true);
-                clearRegister();
-                
-            } else {
-                setAlert({
-                    type: false,
-                    message:`no se puede registrar su ${datosMovie.tipo}, intentelo mas tarde`
-                });
-
-                setShowAlert(true);
-                
-                
-            }
-               }
+                const response = await axios.post(API+resource, request);
+                if(response.status === 201 && response.data){
+                    setAlert({
+                        type: true,
+                        message:`La ${datosMovie.tipo} se registro exitosamente!`
+                    });
+                    setShowAlert(true);
+                    clearRegister();
+                } else {
+                    setAlert({
+                        type: false,
+                        message:`no se pudo registrar su ${datosMovie.tipo}, intentelo mas tarde`
+                    });
+    
+                    setShowAlert(true);
+                    
+                }
+            })
+        }
     
     const [open, setOpen] = useState(false);
-    const [textContet, setTextContet] = useState('');
-
     function handleOpen() {
         if (!open) {
             setOpen(true);
@@ -266,16 +289,14 @@ export default function RegisterMovieComponent(props) {
         
     }
 
-    function handlePopularity(e) {
+    function handlePopularity(popularity) {
+        setTextContet(popularity)
+        handleOpen();
 
-        if (e === 'alta') {
-            setTextContet('Alta')
-        }else if (e === 'media') {
-            setTextContet('Media')
-        }else if (e === 'baja') {
-        setTextContet('Baja')
-            
-        }
+        setDatosMovie({
+            ...datosMovie,
+            ['popularidad']: popularity
+        });
         
     }
     return(
@@ -300,14 +321,14 @@ export default function RegisterMovieComponent(props) {
                    
                    <label htmlFor="duracion" className='cursor-p'>
                        <h1 className=" font-14 color-white mg-bot-10">DURACION</h1>
-                       <input autoComplete='off' className="w-33 inputRegistermovie" type="number" name="duration" placeholder='HH' id="duracion"/>
-                       <input autoComplete='off' className="w-33 inputRegistermovie" type="number" name="duration" placeholder='MM' id="duracion"/>
-                       <input autoComplete='off' className="w-33 inputRegistermovie" type="number" name="duration" placeholder='SS' id="duracion"/>
+                       <input value={time.horas} onChange={(e)=>setTime({...time, [e.target.name]: e.target.value})} autoComplete='off' className="w-33 inputRegistermovie" type="number" name="horas" placeholder='Horas' />
+                       <input value={time.minutos} onChange={(e)=>setTime({...time, [e.target.name]: e.target.value})} autoComplete='off' className="w-33 inputRegistermovie" type="number" name="minutos" placeholder='Minutos' />
+                       <input value={time.segundos} onChange={(e)=>setTime({...time, [e.target.name]: e.target.value})} autoComplete='off' className="w-33 inputRegistermovie" type="number" name="segundos" placeholder='Segundos'/>
                    </label>
 
                    <label htmlFor="popularidad" className='cursor-p mg-bot-10'>
                        <h1 className=" font-14 color-white mg-bot-10">POPULARIDAD</h1>
-                       <div htmlFor="" onClick={()=> handleOpen()} className='w-100 selectPopularity'>{textContet ? textContet : 'Seleccione popularidad'}</div>
+                       <div htmlFor="" onClick={()=> handleOpen()} className='w-100 cursor-p selectPopularity'>{textContet ? textContet : 'Seleccione popularidad'}</div>
                        <div className={`d-flex-column contSelect ${open ? 'd-flex' : 'd-none'} `}> 
                            <label className="cursor-p labelSelect bg-white" htmlFor="" onClick={()=> handlePopularity('alta')}>Alta</label>
                            <label className="cursor-p  labelSelect" htmlFor="" onClick={()=> handlePopularity('media')}>Media</label>
@@ -412,7 +433,7 @@ export default function RegisterMovieComponent(props) {
                                 <h2 className=" font-14 color-white mg-right-10 u-regular">Romance</h2>
                             </label>                
                             <label htmlFor="+18" className="d-flex cursor-p  aling-items-cente">
-                                <input onChange={(e)=>handleGenerosMovie(e)} type="checkbox" name="mas18" id="mas18"  className='cursor-p '/>
+                                <input onChange={(e)=>handleGenerosMovie(e)} type="checkbox" name="+18" id="+18"  className='cursor-p '/>
                                 <h2 className=" font-14 color-white mg-right-10 u-regular"> +18</h2>
                             </label>
                             <label htmlFor='fantasia' className="d-flex cursor-p  aling-items-center ">

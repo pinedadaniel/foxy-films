@@ -1,7 +1,11 @@
 import "./index.scss";
 import imgMovie from "../../../img/movie.jpg";
-import { useState } from "react";
+import axios from "axios";
+import React, {useEffect, useState} from 'react';
 export default function BankMovieComponent(props) {
+    const API = 'http://localhost:5000';
+    const resource = '/movies';
+    const [movies, setMovies] = useState([]);
     const [checkType, setcheckType] = useState("movies");
     const [categorias, setCategorias] = useState([]);
 
@@ -66,6 +70,19 @@ export default function BankMovieComponent(props) {
             });
         }
     }
+    useEffect(() => {
+        async function getMovie() {
+            try {
+            const response = await axios.get(`${API}${resource}`);
+            if(response.status === 200 && response.data){
+                setMovies(response.data);
+            }
+            } catch (error) {
+                console.log(error)
+            }
+        } 
+        getMovie();
+    }, [])
 
     return(
        <div className="containerBankMovie  bg-white">
@@ -73,26 +90,21 @@ export default function BankMovieComponent(props) {
                <input placeholder={`Buscar ${checkType==="movies" ?"peliculas" : "series"}`} className="searchBankMovie bg-white" type="search"/>
                <div className="contListMovies  bg-white ">
                    <div className="contCards">
-                        <div title={`img_${checkType}`} className="card">
-                        <img alt={`img_${checkType}`}  className="imgMovie" src={imgMovie} />
-                            <div className="itemsCard">
-                                <span className="material-icons eye">
-                                     visibility
-                                </span>
-                                <h1 className="nameMovie">movie</h1>
-                            </div>
-
-                        </div>
-                        <div title={`img_${checkType}`} className="card">
-                        <img alt={`img_${checkType}`}  className="imgMovie" src={imgMovie} />
-                            <div className="itemsCard">
-                                <span className="material-icons eye">
-                                     visibility
-                                </span>
-                                <h1 className="nameMovie">movie</h1>
-                            </div>
-
-                        </div>
+                       
+                        {
+                            movies.map((movie,index) =>
+                            <div title={movie.duracion} key={index} className="card">
+                            <img alt={movie.titulo}  className="imgMovie" src={movie.avatar} />
+                                <div className="itemsCard">
+                                    <span className="material-icons eye">
+                                         visibility
+                                    </span>
+                                    <h1 className="nameMovie">{movie.titulo}</h1>
+                                </div>
+    
+                            </div>)
+                        }
+                        
                         
                    </div>
                    

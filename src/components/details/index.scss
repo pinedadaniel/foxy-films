@@ -1,0 +1,111 @@
+.containerDetailsComponent{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    .containerDetailsLeft{
+        height: 100% ;
+        border-radius: 18px;
+        width: calc(35% - 30px);
+        min-width: 200px;
+        background-color: white;
+        padding: 10px 15px;
+        .infoLeft{
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            overflow-y: scroll;
+            .detailsImg{
+                border-radius: 10px;
+                border: 2px solid #0E0C5A;
+            }
+            .detailsTitulo{
+                margin-top: 20px;
+                width: 90%;
+                border-radius: 10px;
+                padding: 10px;
+                background-color: #0E0C5A ;
+                text-align: center;
+                color: white;
+            }
+            .contVotesViews{
+                margin-top: 20px;
+                display: flex;
+                background-color: #0E0C5A ;
+                justify-content: space-around;
+                width: 90%;
+                padding: 10px;
+                border-radius: 10px;
+                .contVotes{
+                    display: flex;
+                    align-items: center;
+                    border-radius: 10px;
+                    padding: 5px;
+                    background-color: white ;
+                    text-align: center;
+                    color: #0E0C5A;
+                }
+                .contViews{
+                    display: flex;
+                    align-items: center;
+                    border-radius: 10px;
+                    padding: 5px;
+                    background-color: white ;
+                    text-align: center;
+                    color: #0E0C5A;
+                }
+            }
+            .detailsCategorias{
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+               align-items: center;
+                width: 90%;
+                .tituloCategorias{
+                    border-radius: 10px;
+                    padding: 10px;
+                    background-color: #0E0C5A ;
+                    text-align: center;
+                    color: white;
+                }
+                .contCategorias{
+                    margin-top: 20px;
+                    display: flex;
+                flex-wrap: wrap;
+                width: 90%;
+                .categoria{
+                    margin: 0 10px 10px 0;
+                    border-radius: 10px;
+                    padding: 10px;
+                    background-color: #0E0C5A ;
+                    text-align: center;
+                    color: white;
+                }
+                }
+            }
+        }
+        .infoLeft::-webkit-scrollbar {
+            width: 8px;     
+            height: 8px;   
+            border:2px solid grey;
+            border-radius: 10px;
+            background: transparent;  
+        }
+        .infoLeft::-webkit-scrollbar-thumb {
+            background: #0E0C5A ;
+            border-radius: 4px;
+
+        }
+
+    }
+    .containerDetailsRight{
+        height: 100%;
+        border-radius: 18px;
+        width: 60%;
+        min-width: 200px;
+        background-color: white;
+    }
+}
