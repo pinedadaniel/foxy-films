@@ -189,7 +189,7 @@ export default function ComponentBodyHome() {
                 ['contraseña']: memoriesPassword
             })
         }
-    }, [])
+    }, [memoriesPassword])
     return(
         <div className="containerMainBody d-flex aling-items-center justify-center w-100 ">
             <img className="logo" src={logo} alt='logo'/>

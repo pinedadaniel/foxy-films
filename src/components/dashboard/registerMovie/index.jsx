@@ -463,7 +463,7 @@ export default function RegisterMovieComponent(props) {
                     </div>
                     <label htmlFor="description" className="mg-top-20 w-100  d-flex-column aling-items-center justify-center">
                         <h1 className="description font-14 color-white mg-bot-10">DESCRIPCION</h1>
-                        <textarea onChange={(e)=>handleDatosMovie(e)} value={datosMovie.descripcion} className='description'  name="descripcion" id="description" cols="40" rows="4"></textarea>
+                        <textarea onChange={(e)=>handleDatosMovie(e)} value={datosMovie.descripcion} className='description  pdd-top-10 pdd-left-10 pdd-right-10 pdd-bot-10'  name="descripcion" id="description" cols="40" rows="4"></textarea>
                     </label>
 
                     <input onClick={() => handleRegister()} type="button" className="submitRegister font-12 mg-top-20" value="Registrar Pelicula" name="submit" id="submitRegister"/>
