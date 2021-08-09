@@ -166,7 +166,7 @@ export default function ComponentBodyHome() {
 
     const submit = async () => {
         const response = await axios.get(`${API}${resource}?user=${login.usuario}&password=${login.contraseña}`);
-        console.log(response)
+      
         if(response.status === 200 && response.data.length > 0){
             localStorage.setItem('userId', response.data[0].id);
             setBlock(false);

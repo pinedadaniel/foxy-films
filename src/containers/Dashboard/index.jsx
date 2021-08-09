@@ -11,7 +11,6 @@ import EditMovie from "../../components/dashboard/editMovie/index.jsx";
 export default function DashboardContainer() {
 
     const {tab} = useParams();
-    console.log(tab);
     function validNotFound() {
         if(tab !== 'bankMovie' && tab !== 'registerMovie' && tab !== "myMovie" && tab !== "editMovie" && tab !== "editUser" )  {
            return <Redirect push to="/*" />

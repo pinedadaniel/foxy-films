@@ -57,7 +57,6 @@ export default function DashboardMenu(props) {
             try {
             const id = localStorage.getItem('userId');
             const response = await axios.get(`${API}${resource}/${id}`);
-            console.log(response);
             if(response.status === 200 && response.data){
                 setModel(response.data);
             }

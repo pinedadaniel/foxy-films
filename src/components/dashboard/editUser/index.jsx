@@ -226,18 +226,17 @@ export default function EditUserComponent(props) {
     useEffect(()=>{
         if (info.gender === 'men') {
             setCurrentAvatar(arrayMen[currentAvatarPosition]);
-            setInfo({
-                ...info,
-                ['avatar']: arrayMen[currentAvatarPosition]
-            })
+            let avatarM = {...info, 
+                avatar: arrayMen[currentAvatarPosition]}
+            setInfo(avatarM)
         }else if(info.gender === 'women'){
             setCurrentAvatar(arrayWomen[currentAvatarPosition]);
-            setInfo({
-                ...info,
-                ['avatar']: arrayWomen[currentAvatarPosition]
-            })
+
+            let avatarW = {...info,
+                avatar: arrayWomen[currentAvatarPosition]}
+            setInfo(avatarW);
         }
-    }, [currentAvatarPosition, arrayMen, arrayWomen]);
+    }, [currentAvatarPosition, arrayMen, arrayWomen, ]);
 
     useEffect(() => {
         if (info.gender === 'men') {
